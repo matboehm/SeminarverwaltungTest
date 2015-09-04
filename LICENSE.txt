@@ -1,0 +1,2 @@
+Kommerzeille Lizenz für öffentlich zugängliche Domains.
+Frei zum Test unter localhost/IP 127.0.0.1.

@@ -1,0 +1,1 @@
+Diese Version ist derzeit zum Test für die Composer-Installation vorgesehen.
