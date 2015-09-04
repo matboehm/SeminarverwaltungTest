@@ -1,0 +1,24 @@
+<!-- Locationanzeige -->
+<div class="seminarlocation layout_list<?php echo $this->classList; ?>">
+<FORM id="bookinglist" name="BOOKINGLIST" method="POST" action="<?php echo $this->action; ?>">
+<INPUT type="hidden" name="FORM_SUBMIT" value="booking_storno"/>
+<INPUT type="hidden" name="REQUEST_TOKEN" value="{{request_token}}"/>
+<INPUT type="hidden" name="DATA" value=""/>
+
+<?php if ($this->submitted): ?>
+	<div class="sv_message"><?php echo $this->message; ?> </div>
+<?php endif; ?>
+
+<ul class="sv_location_navigation">
+	<li class="sv_location_entry">
+		<a href="<?php echo $this->jumpToLocation.'?location=*'; ?>"><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_location_all']; ?></a>
+	</li>
+	<br>
+	<?php foreach($this->arrLocationList as $location): ?>
+		<li class="sv_location_entry">
+			<a href="<?php echo $this->jumpToLocation.'?location='.$location; ?>"><?php echo $location;?></a>
+		</li>
+		<br>
+	<?php endforeach; ?>
+</ul>
+</FORM>

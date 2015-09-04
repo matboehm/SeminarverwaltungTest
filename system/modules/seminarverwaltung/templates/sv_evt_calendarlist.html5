@@ -1,0 +1,48 @@
+<div <?php if ($cssId): ?>id="<?php echo $cssID?>"<?php endif; ?> class="seminarcalendar_list<?php if ($cssClass) { echo ' '.$cssClass;}?>">
+	<div class="block subcolumns seminarcalendar_list_overview upcoming">
+		<!-- Titel - Link zur Reader-Seite -->
+		<div class="c66l">
+			<a href="<?php echo $this->href; ?>">
+				<?php echo $this->title; ?>
+			</a>
+		</div>
+		<div class="c33l">
+		  <?php  echo $this->startDate; ?>
+		  <?php  if ($this->endDate): ?>
+		  	<?php  echo ' - '.$this->endDate; ?>
+		  <?php endif; ?>	
+		</div>
+		
+<!-- verfügbare Variablen -->		
+<!--
+<div class="seminaritems">		
+	<div>Teaser <?php echo $this->teaser; ?></div>
+	<div>Details <?php echo $this->details; ?> </div>
+	<div>Specials <?php echo $this->specials; ?></div> 	
+	
+	<div>Location <?php echo $this->location; ?> </div>	
+	<div>Duration <?php echo $this->duration; ?> </div>	
+	<div>Cost <?php echo $this->cost; ?> </div>
+	<div>Currency <?php echo $this->currency; ?> </div>	
+	<div>Referent <?php echo $this->referent; ?> </div>
+	<div>Reducedcost <?php echo $this->reducedcost; ?></div>
+	<div>Buchen_Formular <?php echo $this->buchen_formular; ?></div> 	
+	<div>Places <?php echo $this->places; ?> </div>
+	<div>Places_min <?php echo $this->places_min; ?> </div>		
+	
+	<div>Intern <?php echo $this->intern; ?></div>
+	<div>Time <?php echo $this->time; ?> </div>
+	<div>startDate <?php echo $this->startDate; ?> </div>
+	<div>endDate <?php echo $this->endDate; ?> </div>
+	<div>Day <?php echo $this->day; ?> </div>
+	<div>Month <?php echo $this->month; ?> </div>
+	<div>Link <?php echo $this->link; ?> </div>
+	<div>Target <?php echo $this->target; ?> </div>
+	<div>Title <?php echo $this->title; ?> </div>
+	<div>Href <?php echo $this->href; ?> </div>
+	<div>Class <?php echo $this->class; ?></div>
+	<div>eventDetails <?php echo $this->eventDetails; ?></div> 
+</div>		
+-->		
+	</div>
+</div>

@@ -1,0 +1,23 @@
+<section class="<?php echo $this->class; ?> block"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
+<?php if ($this->headline): ?>
+<<?php echo $this->hl; ?>><?php echo $this->headline.' ('.$this->category.')'; ?></<?php echo $this->hl; ?>>
+
+<?php endif; ?>
+<?php echo $this->seminar; ?>
+<table>
+	<tbody>
+		<thead>
+			<th class="head"><?php echo $GLOBALS['TL_LANG']['MSC']['seminarheading_title']; ?></th>
+			<th class="head"><?php echo $GLOBALS['TL_LANG']['MSC']['seminarheading_intern']; ?></th>
+			<th class="head"><?php echo $GLOBALS['TL_LANG']['MSC']['seminarheading_date']; ?></th>
+			<th class="head"><?php echo $GLOBALS['TL_LANG']['MSC']['seminarheading_location']; ?></th>
+			<th class="head"><?php echo $GLOBALS['TL_LANG']['MSC']['seminarheading_referent']; ?></th>
+			<th class="head"><?php echo $GLOBALS['TL_LANG']['MSC']['seminarheading_cost']; ?></th>
+			<th class="head"><?php echo $GLOBALS['TL_LANG']['MSC']['seminarheading_jumpTo']; ?></th>
+		</thead>
+		<?php echo $this->events; ?>
+	</tbody>
+</table>
+<?php echo $this->pagination; ?>
+
+</section>

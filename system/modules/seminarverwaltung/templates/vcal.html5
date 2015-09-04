@@ -1,0 +1,194 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+<?php
+
+/* First we connect with the database */
+$dbh = mysql_pconnect("dbserver","dbuser","dbpass");
+
+/* Next we select the database */
+mysql_select_db("dbname",$dbh);
+
+/* run the query for all events */
+$query="select * from gl_events";
+$result=mysql_query($query);
+
+/* How many rows were returned ? */
+$returned=mysql_num_rows($result);
+
+/* Lets fetch them and output the vCal data */
+if ($returned>0) {
+        // This gets every returned row, and outputs the vCal data
+        while($row=mysql_fetch_array($result)) {
+                /* format event data to vCal */
+                $vCalDescription = str_replace("r", "\\n", $row["description"]);
+                $vCalLocation = str_replace("r", "\\n", $row["location"]);
+                $vCalStart = date("Ymd\THi00", strtotime($row["datestart"]." ".$row["timestart"]) );
+                $vCalEnd = date("Ymd\THi00", strtotime($row["dateend"]." ".$row["timeend"]) );
+
+                /* output the event */
+                echo("BEGIN:VEVENT\n");
+                echo("SUMMARY:".$row["title"]."\n");
+                echo("DESCRIPTION:".$vCalDescription."\n");
+                echo("DTSTART:".$vCalStart."\n");
+                echo("LOCATION:".$vCalLocation."\n");
+                echo("URL;VALUE=URI:".$row["url"]."\n");
+                echo("DTEND:".$vCalEnd."\n");
+                echo("END:VEVENT\n");
+        }
+
+}
+
+
+/* now we clean up */
+mysql_free_result($result);
+
+?>
+END:VCALENDAR
+
+//
+// next sample
+// 
+<?php
+
+$vCalOutput = "BEGIN:VCALENDAR\nVERSION:1.0\nPRODID:Geeklog\nTZ:+10\n";
+
+/* First we connect with the database */
+$dbh = mysql_pconnect("dbserver","dbuser","dbpass");
+
+/* Next we select the database */
+mysql_select_db("dbname",$dbh);
+
+/* run the query for all events */
+$query="select * from gl_events";
+$result=mysql_query($query);
+
+/* How many rows were returned ? */
+$returned=mysql_num_rows($result);
+
+/* Lets fetch them and output the vCal data */
+if ($returned>0) {
+        // This gets every returned row, and puts each in a hash
+        while($row=mysql_fetch_array($result)) {
+                /* format event data to vCal */
+                $vCalDescription = str_replace("\r", "\\n", $row["description"]);
+                $vCalLocation = str_replace("\r", "\\n", $row["location"]);
+                $vCalStart = date("Ymd\THi00", strtotime($row["datestart"]." ".$row["timestart"]) );
+                $vCalEnd = date("Ymd\THi00", strtotime($row["dateend"]." ".$row["timeend"]) );
+
+                /* output the event */
+                $vCalOutput = $vCalOutput."BEGIN:VEVENT\n";
+                $vCalOutput = $vCalOutput."SUMMARY:".$row["title"]."\n";
+                $vCalOutput = $vCalOutput."DESCRIPTION:".$vCalDescription."\n";
+                $vCalOutput = $vCalOutput."DTSTART:".$vCalStart."\n";
+                $vCalOutput = $vCalOutput."LOCATION:".$vCalLocation."\n";
+                $vCalOutput = $vCalOutput."URL;VALUE=URI:".$row["url"]."\n";
+                $vCalOutput = $vCalOutput."DTEND:".$vCalEnd."\n";
+                $vCalOutput = $vCalOutput."END:VEVENT\n";
+        }
+
+}
+
+
+/* now we clean up */
+mysql_free_result($result);
+
+$vCalOutput = $vCalOutput."END:VCALENDAR";
+
+/* echo($vCalOutput); */
+
+$icsfile=fopen('../backend/geeklog.ics','w');
+fputs($icsfile, $vCalOutput);
+fclose($icsfile);
+
+?>
+
+
+
+//
+//
+//
+$vCalOutput = "BEGIN:VCALENDAR\n" .
+              "VERSION:2.0\n" .
+              "X-WR-CALNAME:VCOS\n" .
+              "PRODID:-//Geeklog//Version 1.3.8//EN\n" .
+              "X-WR-TIMEZONE:US/Pacific\n" .
+              "CALSCALE:GREGORIAN\n" .
+              "METHOD:PUBLISH\n" .
+              "BEGIN:VTIMEZONE\n" .
+              "TZID:US/Pacific\n" .
+              "LAST-MODIFIED:" . date("Ymd\THi00\Z") . "\n" .
+              "BEGIN:STANDARD\n" .
+              "DTSTART:20021027T090000\n" .
+              "TZOFFSETTO:-0800\n" .
+              "TZOFFSETFROM:+0000\n" .
+              "TZNAME:PST\n" .
+              "END:STANDARD\n" .
+              "BEGIN:DAYLIGHT\n" .
+              "DTSTART:20030406T010000\n" .
+              "TZOFFSETTO:-0700\n" .
+              "TZOFFSETFROM:-0800\n" .
+              "TZNAME:PDT\n" .
+              "END:DAYLIGHT\n" .
+              "BEGIN:STANDARD\n" .
+              "DTSTART:20031026T020000\n" .
+              "TZOFFSETTO:-0800\n" .
+              "TZOFFSETFROM:-0700\n" .
+              "TZNAME:PST\n" .
+              "END:STANDARD\n" .
+              "BEGIN:DAYLIGHT\n" .
+              "DTSTART:20040404T010000\n" .
+              "TZOFFSETTO:-0700\n" .
+              "TZOFFSETFROM:-0800\n" .
+              "TZNAME:PDT\n" .
+              "END:DAYLIGHT\n" .
+              "END:VTIMEZONE\n";
+ 
+ //
+ //
+ //
+ /* Lets fetch them and output the vCal data */
+if ($returned>0) {
+        // This gets every returned row, and puts each in a hash
+        while($row=mysql_fetch_array($result)) {
+                /* format event data to vCal */
+                $vCalDescription = str_replace("\r", "\\n", $row["description"]);
+                $vCalLocation = str_replace("\r", "\\n", $row["location"]);
+                if ($row["allday"]) {
+                        $vCalStart = date("Ymd", strtotime($row["datestart"]));
+                        $vCalEnd = date("Ymd", strtotime($row["dateend"]));
+                } else {
+                        $vCalStart = date("Ymd\THi00", strtotime($row["datestart"]." ".$row["timestart"]) );
+                    $vCalEnd = date("Ymd\THi00", strtotime($row["dateend"]." ".$row["timeend"]) );
+                                }
+
+                /* output the event */
+               
+                if (!$row["allday"]) {
+                        $vCalOutput = $vCalOutput."BEGIN:VEVENT\n";
+                        $vCalOutput = $vCalOutput."SUMMARY:".$row["title"]."\n";
+                        $vCalOutput = $vCalOutput."DESCRIPTION:".$vCalDescription."\n";
+                    $vCalOutput = $vCalOutput."DTSTART;TZID=US/Pacific:".$vCalStart."\n";
+                    $vCalOutput = $vCalOutput."LOCATION:".$vCalLocation."\n";
+                    $vCalOutput = $vCalOutput."URL;VALUE=URI:".$row["url"]."\n";
+                        $vCalOutput = $vCalOutput."DTEND:".$vCalEnd."\n";
+                            $vCalOutput = $vCalOutput."END:VEVENT\n";
+                        } else {
+                                $dayinc = 1;
+                                while ($vCalStart <= $vCalEnd) {
+                                $vCalOutput = $vCalOutput."BEGIN:VEVENT\n";
+                                $vCalOutput = $vCalOutput."SUMMARY:".$row["title"]."\n";
+                                $vCalOutput = $vCalOutput."DESCRIPTION:".$vCalDescription."\n";
+                                    $vCalOutput = $vCalOutput."DTSTART;TZID=US/Pacific:".$vCalStart."\n";
+                                    $vCalOutput = $vCalOutput."LOCATION:".$vCalLocation."\n";
+                            $vCalOutput = $vCalOutput."URL;VALUE=URI:".$row["url"]."\n";
+                                    $vCalOutput = $vCalOutput."END:VEVENT\n";
+                                    $vCalYear = $vCalStart[0] . $vCalStart[1] . $vCalStart[2] . $vCalStart[3];
+                                    $vCalMonth = $vCalStart[4] . $vCalStart[5];
+                                    $vCalDay = $vCalStart[6] . $vCalStart[7];
+                                    $nextday = mktime(0, 0, 0, $vCalMonth, $vCalDay + 1, $vCalYear);
+                                    $vCalStart = date("Ymd", $nextday);
+                                }
+                        }
+        }
+
+}

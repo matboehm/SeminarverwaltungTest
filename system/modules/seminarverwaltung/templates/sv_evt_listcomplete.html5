@@ -1,0 +1,41 @@
+<?php //echo '<pre>'; print_r($this->arrData); echo '<pre>'; ?>
+<!-- Seminarliste -->
+<div <?php if ($cssId): ?>id="<?php echo $cssID?>"<?php endif; ?> class="seminar event listcomplete<?php if ($cssClass) { echo ' '.$cssClass;}?>">
+	<!-- Titel - Link zur Reader-Seite -->
+	<div class="sv_termininfobox">
+		<h2 class="sv_titel">
+			<a href="<?php echo $this->href; ?>">
+				<?php echo $this->title.' | '.$this->category; ?>
+			</a>
+		</h2>
+
+		<!-- Teaser anzeigen, sofern vorhanden -->
+		<?php if ($this->teaser):?>
+			<div class="sv_teaser sv_subtitle">
+				<?php echo $this->teaser; ?>
+			</div>
+		<?php endif; ?>
+
+		<table class="sv_details">
+			<tbody>
+				<tr>
+					<td class="head"><?php echo $GLOBALS['TL_LANG']['MSC']['seminarheading_date']; ?></td>
+					<td class="data"><?php echo $this->date; ?></td>
+				</tr>
+				<tr>
+					<td class="head"><?php echo $GLOBALS['TL_LANG']['MSC']['seminarheading_location']; ?></td>
+					<td class="data"><?php echo $this->location; ?></td>
+				</tr>
+				<tr>
+					<td class="head"><?php echo $GLOBALS['TL_LANG']['MSC']['seminarheading_cost']; ?></td>
+					<td class="data"><?php echo $this->cost.' '.$this->currency; ?></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<!-- Weiter lesen Link -->
+	<div class="sv_weiterlesen">
+		<a href="<?php echo $this->href; ?>"><?php echo $GLOBALS['TL_LANG']['MSC']['more']; ?></a>
+	</div>
+	<br><br>
+</div>

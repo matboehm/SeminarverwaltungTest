@@ -1,0 +1,25 @@
+<section class="<?php echo $this->class; ?> block"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
+<?php if ($this->headline): ?>
+<<?php echo $this->hl; ?>><?php echo $this->category; ?></<?php echo $this->hl; ?>>
+<?php endif; ?>
+<?php if ($this->sv_template == 'sv_evt_listlatest'): ?>
+<table class="sv_aktuelle_termine">
+	<tbody>
+		<tr>
+			<th><?php echo $GLOBALS['TL_LANG']['MSC']['seminarheading_title']; ?></th>
+			<th><?php echo $GLOBALS['TL_LANG']['MSC']['seminarheading_date']; ?></th>
+			<th><?php echo $GLOBALS['TL_LANG']['MSC']['seminarheading_location']; ?></th>
+			<th><?php echo $GLOBALS['TL_LANG']['MSC']['seminarheading_category']; ?></th>
+			<th></th>
+		</tr>
+<?php endif; ?>
+
+<?php echo $this->events; ?>
+
+<?php if ($this->sv_template == 'sv_evt_listlatest'): ?>
+	</tbody>
+</table>
+<?php endif; ?>
+
+<?php echo $this->pagination; ?>
+</section>

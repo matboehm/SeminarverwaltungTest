@@ -1,0 +1,13 @@
+<!-- Seminarliste -->
+	<tr>
+		<td class="">
+			<span class="booking_<?php echo $this->bookstate_class; ?>"></span>
+			<span style="margin-left:30px;"><?php echo $this->title; ?></span>
+		</td>
+		<td class="">
+			<?php echo $this->date; ?>
+		</td>
+		<td><?php echo $this->location; ?></td>
+		<td><?php echo $this->category; ?></td>
+		<td><a href="<?php echo $this->href; ?>"><?php echo $GLOBALS['TL_LANG']['MSC']['more']; ?></a></td>
+	</tr>

@@ -1,0 +1,85 @@
+<?php if (empty($this->arrSeminars)) return; ?>
+<?php foreach($this->arrSeminars as $arrSeminar): ?>
+	<div class="seminar layout_list<?php echo $this->classList; ?>">
+		<?php if ($arrSeminar['title']): ?>
+		<h2><?php echo $arrSeminar['title']; ?></h2>
+		<?php endif; ?>
+		<table  class="sv_details">
+			<tbody>
+				<tr>
+					<td class="head"><?php echo $GLOBALS['TL_LANG']['MSC']['seminarheading_referent']; ?></td>
+					<td class="data"><?php echo $arrSeminar['referent']; ?></td>
+				</tr>
+				<tr>
+					<td class="head"><?php echo $GLOBALS['TL_LANG']['MSC']['seminarheading_location']; ?></td>
+					<td class="data"><?php echo $arrSeminar['location']; ?></td>
+				</tr>
+				<tr>
+					<td class="head"><?php echo $GLOBALS['TL_LANG']['MSC']['seminarheading_cost']; ?></td>
+					<td class="data"><?php echo $arrSeminar['cost'].' '.$arrSeminar['currency']; ?></td>
+				</tr>
+			</tbody>
+		</table>
+		<br>
+		<div class="ce_text">
+			<?php echo $arrSeminar['teaser']; ?>
+		</div>
+		<div class="ce_text">
+			<?php echo $arrSeminar['specials']; ?>
+		</div>
+	    <br>
+	</div>
+	<?php if (!empty($arrSeminar['arrEvents'])): ?>
+	<div class="events">
+		<table class="sv_events">
+			<tbody>
+				<tr class="even">
+					<td class="head" width="5%"><?php echo $GLOBALS['TL_LANG']['MSC']['seminarheading_intern']; ?></td>
+					<td class="head" width="30%"><?php echo $GLOBALS['TL_LANG']['MSC']['seminarheading_date']; ?></td>
+					<td class="head" width="15%"><?php echo $GLOBALS['TL_LANG']['MSC']['seminarheading_time']; ?></td>
+					<td class="head" width="20%"><?php echo $GLOBALS['TL_LANG']['MSC']['seminarheading_location']; ?></td>
+					<td class="head" width="10%"><?php echo $GLOBALS['TL_LANG']['MSC']['seminarheading_free']; ?></td>
+					<td class="head" ></td>
+				</tr>
+				<?php foreach ($arrSeminar['arrEvents'] as $arrEvent): ?>
+					<tr>
+						<td width="5%"><p class="button"><a href="<?php echo $arrEvent['href']; ?>"><?php echo $arrEvent['intern']; ?></a></p></td>
+						<td width="30%">
+							<?php if (!empty($arrEvent['icaldata']['ical'])): ?>
+								<a class="ical" href="<?php echo $arrEvent['icaldata']['href_ical']; ?>" title="<?php echo $arrEvent['icaldata']['title_ical']; ?> <?php echo $GLOBALS['TL_LANG']['MSC']['seminarical_add2cal']; ?>">
+								<span class="icalicon">i</span>
+							<?php endif; ?>
+						
+								<?php echo $arrEvent['startDate']; ?>
+								<?php if ($arrEvent['multipleDate']): ?>
+									- <?php echo $arrEvent['endDate']; ?>
+								<?php endif; ?>
+							<?php if (!empty($arrEvent['icaldata']['ical'])): ?>
+								</a>	
+							<?php endif; ?>
+						</td>
+						<td width="15%">
+							<?php if ($arrEvent['addTime']) : ?>
+								<?php echo $arrEvent['startTime']; ?>
+								<?php if ($arrEvent['endTime']): ?>
+									- <?php echo $arrEvent['endTime']; ?>
+								<?php endif; ?>
+							<?php endif; ?>
+						</td>
+						<td width="20%" align="center">
+							<span class="sv_location"> </span>
+							<span style="margin-left:30px;"> <?php echo $arrEvent['location'] ? $arrEvent['location'] : $arrSeminar['location']; ?></span>
+						</td>
+						<td width="10%" align="center">
+							<span class="booking_<?php echo $arrEvent['bookingstate']; ?>"> </span>
+							<span style="margin-left:30px;"> <?php echo $arrEvent['free_places']; ?></span>
+						</td>
+						<td><a title="<?php echo $GLOBALS['TL_LANG']['MSC']['more']; ?>" href="<?php echo $arrEvent['href']; ?>"><?php echo $GLOBALS['TL_LANG']['MSC']['more']; ?></a></td>
+					</tr>
+				<?php endforeach; ?>
+			</tbody>
+		</table> 
+	</div>
+	<br><br><br>
+	<?php endif; ?>		
+<?php endforeach; ?>

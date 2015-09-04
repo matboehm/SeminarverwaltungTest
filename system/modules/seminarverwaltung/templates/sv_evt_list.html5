@@ -1,0 +1,20 @@
+<!-- Seminarliste -->
+<div <?php if ($cssId): ?>id="<?php echo $cssID?>"<?php endif; ?> class="seminarlist<?php if ($cssClass) { echo ' '.$cssClass;}?>">
+	<div class="block subcolumns event_list_overview brown upcoming">
+		<!-- Titel - Link zur Reader-Seite -->
+		<div class="c66l">
+		<h<?php echo $this->headerlevel;?> class="titel">
+			<a href="<?php echo $this->href; ?>">
+				<?php echo $this->title; ?>
+			</a>
+		<?php echo '</h'.$this->headerlevel.'>';?>
+		<!-- Weiter lesen Link -->
+		</div>
+		<div class="c33l">
+		  <?php echo $this->startDate; ?>  
+		  <?php	if (!empty($this->endDate)): ?>
+			<?php echo ' - '.$this->endDate; ?>
+		  <?php endif; ?>
+		</div>
+	</div>
+</div>

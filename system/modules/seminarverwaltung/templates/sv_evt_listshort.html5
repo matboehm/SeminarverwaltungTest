@@ -1,0 +1,43 @@
+<!-- Seminarliste -->
+<div <?php if ($cssId): ?>id="<?php echo $cssID?>"<?php endif; ?> class="seminarlist<?php if ($cssClass) { echo ' '.$cssClass;}?>">
+<!-- Titel - Link zur Reader-Seite -->
+<h4 class="sv_titel">
+  <a href="<?php echo $this->href; ?>">
+	  <?php echo $this->title.' ('.$this->intern.')'; ?>
+	</a> 
+</h4>
+<div class="buchen_button">
+  <a href="<?php echo $this->buchen_formular;?>" target="blank">Zur Anmeldung</a>
+</div>
+<!-- Untertitel Kurzinfos -->
+<div class="sv_subtitle date">
+  <?php echo <?php echo $GLOBALS['TL_LANG']['MSC']['seminarheading_date']; ?>.' '.$this->startDate; ?>
+  <?php	if (!empty($this->endDate)): ?>
+  	<?php echo ' - '.$this->endDate; ?>
+  <?php endif; ?>
+
+  <?php if ($this->time): ?>
+     <?php echo $this->time; ?>
+  <?php endif; ?>
+</div>
+
+<div>
+   <?php echo $GLOBALS['TL_LANG']['MSC']['seminarheading_free']; ?> <?php echo ($this->free_places); ?>
+</div>
+
+<div class="subtitle info">
+  <?php echo <?php echo $GLOBALS['TL_LANG']['MSC']['seminarheading_location']; ?>.': '.$this->location.' / '.<?php echo $GLOBALS['TL_LANG']['MSC']['seminarheading_referent']; ?>.':'.$this->facilitatorname.'/ '.<?php echo $GLOBALS['TL_LANG']['MSC']['seminarheading_cost']; ?>.': '.$this->cost.'/'.$this->reducedcost.$this->currency; ?>
+</div>
+
+<!-- Teaser anzeigen, sofern vorhanden -->
+<?php if ($this->teaser):?>
+<div class="teaser">
+  <?php echo $this->teaser; ?>
+</div>
+<?php endif; ?>
+<!-- Weiter lesen Link -->
+<div class="weiterlesen">
+  <a href="<?php echo $this->href; ?>"><?php echo $GLOBALS['TL_LANG']['MSC']['more']; ?></a>
+</div>
+</div>
+<hr>

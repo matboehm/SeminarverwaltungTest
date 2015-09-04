@@ -1,0 +1,14 @@
+<!-- Seminarkategorie -->
+<li <?php if ($cssId): ?>id="<?php echo $cssID?>"<?php endif; ?> class="seminarcategory_menu<?php if ($cssClass) { echo ' '.$cssClass;}?>">
+	<div class="sv_seminarcategory">
+	<a class="sv_seminarcategory_link" href="<?php echo $this->href_category; ?>">
+		<?php echo $this->title; ?>
+	</a>
+	<?php if ($this->teaser && empty($this->details)): ?>
+		<?php echo $this->teaser; ?>
+	<?php endif; ?>
+	<?php if ($this->details): ?>
+		<?php echo $this->details; ?>
+	<?php endif; ?>
+	</div>
+</li>

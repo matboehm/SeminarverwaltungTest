@@ -1,0 +1,92 @@
+<!-- indexer::stop -->
+<div class="<?php echo $this->class; ?> block"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
+<?php if ($this->headline): ?>
+<<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
+<?php endif; ?>
+
+<?php if ($this->submitted): ?>
+<div class="sv_booked">
+<?php echo $this->ready; ?>
+</div> 
+<?php else: ?> 
+<form id="seminarbuchung" name="seminarbuchung" method="post" action="<?php echo $this->action; ?>" class="yform seminar">
+<input type="hidden" name="FORM_SUBMIT" value="seminarbuchung" />
+<input type="hidden" name="REQUEST_TOKEN" value="{{request_token}}"> 
+<div class="type-checkbox">
+  <?php echo $this->semkat->generateLabel(); ?>
+  <?php echo $this->semkat->generate(); ?>
+</div>	
+<div class="type-select">
+  <?php echo $this->seminar->generateLabel(); ?>
+  <?php echo $this->seminar->generate(); ?>
+</div>	
+<!-- folgende Elemente werden via AJAX befüllt -->
+<div class="seminarinfo">
+  <!-- Darstellung des ausgewählten Seminarevents -->
+  <div id="title" class="no_hide"></div>
+  <div id="intern" class="no_hide"></div>
+  <div id="teaser" class="hide"></div>
+  <div id="details" class="no_hide"></div>
+  <div id="evtDetails" class="no_hide"></div>
+  <div id="specials" class="no_hide"></div>
+  <div id="location" class="no_hide"></div>
+  <div id="duration" class="hide"></div>
+  <div id="startDate" class="no_hide"></div>
+  <div id="endDate" class="no_hide"></div>
+  <div id="startTime" class="hide"></div>
+  <div id="endTime" class="hide"></div>
+  <div id="cost" class="no_hide"></div>
+  <div id="currency" class="no_hide"></div>
+  <div id="reducedcost" class="hide"></div>
+</div>
+
+<div class="type-text">
+  <?php echo $this->geschlecht->generateLabel(); ?>
+  <?php echo $this->geschlecht->generateWithError(); ?>
+</div>  
+<div class="type-text">
+  <?php echo $this->vorname->generateLabel(); ?>
+  <?php echo $this->vorname->generateWithError(); ?>
+</div>  
+<div class="type-text">
+  <?php echo $this->nachname->generateLabel(); ?>
+  <?php echo $this->nachname->generateWithError(); ?>
+</div>  
+<div class="type-text">
+  <?php echo $this->strasse->generateLabel(); ?>
+  <?php echo $this->strasse->generateWithError(); ?>
+</div>  
+<div class="type-text">
+  <?php echo $this->plz->generateLabel(); ?>
+  <?php echo $this->plz->generateWithError(); ?>
+</div>  
+<div class="type-text">
+  <?php echo $this->ort->generateLabel(); ?>
+  <?php echo $this->ort->generateWithError(); ?>
+</div>  
+<div class="type-text">
+  <?php echo $this->telefon->generateLabel(); ?>
+  <?php echo $this->telefon->generateWithError(); ?>
+</div>  
+<div class="type-text">
+  <?php echo $this->email->generateLabel(); ?>
+  <?php echo $this->email->generateWithError(); ?>
+</div>  
+
+<p class="error">
+<?php if (!$this->agb->validate) echo $this->agb->getErrorAsString(); ?>
+</p>
+<div class="type-checkbox">
+	{{link::agb}}
+  <?php echo $this->agb->generateLabel(); ?>
+  <input type="checkbox" id="agb" name="agb"/>
+</div>  
+
+<div class="type-button">
+  <input type="submit" value="<?php echo $GLOBALS['TL_LANG']['MSC']['seminar_button_booking']; ?>" id="submit" name="submit" />
+</div>
+
+</form>
+<?php endif; ?>
+</div>
+<!-- indexer::continue -->

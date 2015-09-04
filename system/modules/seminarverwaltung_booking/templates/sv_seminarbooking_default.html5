@@ -1,0 +1,143 @@
+<!-- indexer::stop -->
+<div class="<?php echo $this->class; ?> block"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
+<?php if ($this->headline): ?>
+<<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
+<?php endif; ?>
+
+<?php if ($this->submitted): ?>
+	<div class="sv_booked">
+		<?php echo $this->ready; ?>
+	</div> 
+<?php else: ?> 
+<form id="seminarbuchung" name="seminarbuchung" method="post" action="<?php echo $this->action; ?>" class="ce_form yform seminar block">
+<input type="hidden" name="FORM_SUBMIT" value="seminarbuchung" />
+<input type="hidden" name="REQUEST_TOKEN" value="{{request_token}}"> 
+<input type="hidden" name="checkID" value=""> 
+<input type="hidden" name="show_recurring" value="0"> 
+<input type="hidden" name="seminaridx" value="<?php echo $this->seminaridx; ?>"> 
+<input type="hidden" name="eventidx" value="<?php echo $this->eventidx; ?>"> 
+
+  <?php if ($this->doSelect): ?>	
+      <?php if (!$this->doSeminarSelect): ?>
+		  <?php echo $this->semkat->generateLabel(); ?>
+		  <?php echo $this->semkat->generateWithError(true); ?><br>
+	  <?php endif; ?>
+	  <?php echo $this->seminar->generateLabel(); ?>
+	  <?php echo $this->seminar->generateWithError(true); ?><br>
+	<!-- folgende Elemente werden via AJAX befüllt -->
+	<div class="seminarinfo" style="display:none">
+	  <H2><span id="title"></span>.<?php echo ' |'.$GLOBALS['TL_LANG']['MSC']['seminar_details']; ?></H2>
+	  <table class="contentpane">
+	  	<tbody>
+	  		<tr class="even">
+	  			<th><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_intern']; ?></th>
+	  			<td id="intern"></td>
+	  		</tr>
+	  		<tr class="odd">
+	  			<th><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_location']; ?></th>
+	  			<td id="location"></td>
+	  		</tr>
+	  		<tr class="even">
+	  			<th><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_duration']; ?></th>
+	  			<td id="duration"></td>
+	  		</tr>
+	  		<tr class="odd">
+	  			<th><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_date']; ?></th>
+	  			<td><span id="startDate"></span> </td>
+	  		</tr>
+	  		<tr class="even"><span id="startTime"> - <span id="endTime"></span>
+	  			<th><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_timerange']; ?></th>
+	  			<td><span id="startTime"> - <span id="endTime"></span></td>
+	  		</tr>
+	  		<tr class="even">
+	  			<th><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_price']; ?></th>
+	  			<td><span  id="cost"></span> <span  id="currency"></span></td>
+	  		</tr>
+	  	</tbody>
+	  </table>
+	  <?php	if (($this->arrSeminar['eventSpecials']) || ($this->arrSeminar['specials'])): ?>
+	  <h2><?php echo $GLOBALS['TL_LANG']['MSC']['seminarevent_specials']; ?></h2>
+	  <?php endif; ?>
+	  <div class="specials">
+		  <?php	if ($this->arrSeminar['eventSpecials']): ?>
+		  	<?php echo '<div class="eventSpecial">'.$this->arrSeminar['eventSpecials'].'</div>'; ?>
+		  <?php endif; ?>	
+		  <?php	if ($this->arrSeminar['specials']): ?>
+		  	<?php echo '<div class="seminarSpecial">'.$this->arrSeminar['specials'].'</div>'; ?>
+		  <?php endif; ?>	
+  	  </div>
+	</div>
+  <?php endif; ?>
+
+  <?php if($this->showdate < time()): ?>
+	  <div class="redlight">
+	  	<span class="booking_red"></span><span style="margin-left:30px;"><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_toolate']; ?></span>
+	  </div><br>
+  <?php else: ?>
+	<div class="<?php echo $this->bookingstate; ?>light">
+	<?php if($this->bookingstate == 'red'): ?>
+			<span class="booking_<?php echo $this->bookingstate; ?>"></span><span style="margin-left:30px;"><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_full']; ?></span>
+	<?php elseif($this->bookingstate == 'yellow'): ?>
+			<span class="booking_<?php echo $this->bookingstate; ?>"></span><span style="margin-left:30px;"><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_intime']; ?></span>
+	<?php elseif($this->bookingstate == 'green'): ?>
+			<span class="booking_<?php echo $this->bookingstate; ?>"></span><span style="margin-left:30px;"><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_bookingpossible']; ?></span>
+ 	<?php endif; ?>
+ 	</div><br>
+
+	<?php echo $this->geschlecht->generateLabel(); ?>
+	<?php echo $this->geschlecht->generateWithError(true); ?><br>
+	
+	<?php echo $this->vorname->generateLabel(); ?>
+	<?php echo $this->vorname->generateWithError(true); ?><br>
+	<?php echo $this->nachname->generateLabel(); ?>
+	<?php echo $this->nachname->generateWithError(true); ?><br>
+	<label for="ctrl_firma"><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_firma']; ?></label>
+	<input type ="text" id="ctrl_firma" name="firma">
+	<?php echo $this->strasse->generateLabel(); ?>
+	<?php echo $this->strasse->generateWithError(true); ?><br>
+	<?php echo $this->plz->generateLabel(); ?>
+	<?php echo $this->plz->generateWithError(true); ?><br>
+	<?php echo $this->ort->generateLabel(); ?>
+	<?php echo $this->ort->generateWithError(true); ?><br>
+	<?php echo $this->telefon->generateLabel(); ?>
+	<?php echo $this->telefon->generateWithError(true); ?><br>
+	<?php echo $this->email->generateLabel(); ?> 
+	<?php echo $this->email->generateWithError(true); ?><br>
+	<?php echo $this->msg->generateLabel(); ?> 
+	<?php echo $this->msg->generateWithError(true); ?><br>
+
+	<br><br>
+	<label for="ctrl_billing_address"><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_billingAddress']; ?></label>
+	<textarea id="ctrl_billing_address" name="billing_address" cols="80" rows="4"></textarea>
+	<br>
+
+	<?php echo $this->agb->generateLabel(); ?> 
+	<?php echo $this->agb->generateWithError(true); ?><br>
+	<?php echo $this->widerruf->generateLabel(); ?> 
+	<?php echo $this->widerruf->generateWithError(true); ?><br>
+	
+	<br>
+	<?php echo $this->captcha->generateLabel(); ?>
+	<?php echo $this->captcha->generateQuestion(); ?>
+	<?php echo $this->captcha->generateWithError(true); ?><br>
+	
+	<div class="cost">
+		<h2><?php echo $this->arrSeminar['title'].' ('.$this->arrSeminar['intern'].')'; ?></h2>
+		<strong>Kosten <?php echo $this->arrSeminar['cost'] .' '. $this->arrSeminar['currency']; ?></strong>
+		<br><br>
+	</div>	
+	<?php if($this->bookingstate == 'red' || $this->reservationStatus): ?>
+		<div class="submit_container type-button">
+		  <input type="submit" value="<?php echo $GLOBALS['TL_LANG']['MSC']['seminar_reservationSubmit']; ?>" id="submit" name="submit" />
+		</div>
+	<?php else: ?>
+		<div class="submit_container type-button">
+		  <input type="submit" value="<?php echo $GLOBALS['TL_LANG']['MSC']['seminar_bookingSubmit']; ?>" id="submit" name="submit" />
+		</div>
+	<?php endif; ?>
+  <?php endif; ?>
+
+</form>
+<?php endif; ?>
+</div>
+<!-- indexer::continue -->

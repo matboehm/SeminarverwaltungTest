@@ -1,0 +1,42 @@
+<?xml version="1.0" ?><xliff version="1.1">
+  <file datatype="php" original="system/modules/news/languages/en/tl_user.php" source-language="en">
+    <body>
+      <trans-unit id="tl_user.seminars.0">
+        <source>Allowed seminar categories</source>
+        <target>Erlaubte Seminarkategorien</target>
+      </trans-unit>
+      <trans-unit id="tl_user.seminars.1">
+        <source>Here you can grant access to one or more seminar categories.</source>
+        <target>Hier können Sie den Zugriff auf ein oder mehrere Seminar-Kategorien erlauben.</target>
+      </trans-unit>
+      <trans-unit id="tl_user.seminarp.0">
+        <source>Seminar permissions</source>
+        <target>Seminarrechte</target>
+      </trans-unit>
+      <trans-unit id="tl_user.seminarp.1">
+        <source>Here you can define the seminar permissions.</source>
+        <target>Hier können Sie die Seminarrechte festlegen.</target>
+      </trans-unit>
+      <trans-unit id="tl_user.seminarbookings.0">
+        <source>Allowed seminar categories for bookings</source>
+        <target>Erlaubte Seminarkategorien für die Buchungsanfragen</target>
+      </trans-unit>
+      <trans-unit id="tl_user.seminarbookings.1">
+        <source>Here you can grant access to one or more seminar categories.</source>
+        <target>Hier können Sie den Zugriff auf ein oder mehrere Seminar-Kategorien erlauben.</target>
+      </trans-unit>
+      <trans-unit id="tl_user.seminarbookingp.0">
+        <source>Seminarbooking permissions</source>
+        <target>Seminarbuchungsrechte</target>
+      </trans-unit>
+      <trans-unit id="tl_user.seminarbookingp.1">
+        <source>Here you can define the seminar permissions.</source>
+        <target>Hier können Sie die Seminarrechte festlegen.</target>
+      </trans-unit>
+      <trans-unit id="tl_user.seminar_legend">
+        <source>Seminar permissions</source>
+        <target>Seminar-Rechte</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

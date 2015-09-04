@@ -1,0 +1,128 @@
+<!-- Seminaranzeige -->
+<div class="seminar layout_full<?php echo $this->classList; ?>">
+	<?php if ($this->title): ?>
+	<!--
+	<<?php echo $this->hl; ?>><?php echo $this->title; ?></<?php echo $this->hl; ?>>
+	-->
+	<h2><?php echo $this->title; ?> (<?php $GLOBALS['TL_LANG']['MSC']['seminar_intern']; ?> <?php echo $this->intern; ?>)</h2>
+	<?php endif; ?>
+	<?php if (!$this->details && $this->teaser): ?>
+		<div class="ce_text">
+			<?php echo $this->teaser; ?>
+		</div>
+	<?php endif; ?>
+	
+	<?php if (!$this->addBefore): ?>
+		<div class="ce_text">
+			<?php if (!empty($this->details)): ?>
+				<div class="seminar_details">
+					<?php echo $this->details; ?>
+				</div>
+			<?php endif; ?>	
+			<?php if (!empty($this->evtDetails)): ?>
+				<div class="event_details">
+					<?php echo $this->evtDetails; ?>
+				</div>
+			<?php endif; ?>	
+		</div>
+	<?php endif; ?>
+
+	<?php if ($this->addImage): ?>
+	    <figure class="image_container<?php echo $this->floatClass; ?>"<?php if ($this->margin || $this->float): ?> style="<?php echo trim($this->margin . $this->float); ?>"<?php endif; ?>>
+	
+	      <?php if ($this->href): ?>
+	        <a href="<?php echo $this->href; ?>"<?php if ($this->linkTitle): ?> title="<?php echo $this->linkTitle; ?>"<?php endif; ?><?php echo $this->attributes; ?>>
+	      <?php endif; ?>
+	
+	      <img src="<?php echo $this->src; ?>"<?php echo $this->imgSize; ?> alt="<?php echo $this->alt; ?>"<?php if ($this->title): ?> title="<?php echo $this->title; ?>"<?php endif; ?>>
+	
+	      <?php if ($this->href): ?>
+	        </a>
+	      <?php endif; ?>
+	
+	      <?php if ($this->caption): ?>
+	        <figcaption class="caption" style="width:<?php echo $this->arrSize[0]; ?>px"><?php echo $this->caption; ?></figcaption>
+	      <?php endif; ?>
+	
+	    </figure>
+	<?php endif; ?>
+	
+	<?php if ($this->addBefore): ?>
+		<div class="ce_text">
+			<?php if (!empty($this->details)): ?>
+				<div class="seminar_details">
+					<?php echo $this->details; ?>
+				</div>
+			<?php endif; ?>	
+			<?php if (!empty($this->evtDetails)): ?>
+				<div class="event_details">
+					<?php echo $this->evtDetails; ?>
+				</div>
+			<?php endif; ?>	
+		</div>
+	<?php endif; ?>
+	
+	<div class="clear"></div>
+	<div class="kursdaten">
+		<h3 class="sv_first_dateline"><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_details']; ?></h3>
+	</div>
+	<table class="sv_details">
+		<tbody>
+  	     <?php if (!empty($this->date)): ?>
+			<tr>
+				<td class="head"><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_bookingstate']; ?></td>
+				<td class="data">
+					<span class="booking_<?php echo $this->bookingstate; ?>"></span>
+					<span class="booking_text">
+					<?php if ($this->bookingstate == 'green'): ?>
+						<?php echo $this->free_places; ?> <?php echo $GLOBALS['TL_LANG']['MSC']['seminarheading_free']; ?>
+					<?php elseif ($this->bookingstate == 'yellow'): ?>
+						<?php echo $this->free_places; ?> <?php echo $GLOBALS['TL_LANG']['MSC']['seminarheading_free']; ?>
+					<?php elseif ($this->bookingstate == 'red'): ?>
+						<?php echo $GLOBALS['TL_LANG']['MSC']['seminar_bookingstate_full']; ?>
+					<?php endif; ?>
+					</span>
+				</td>
+			</tr>
+			<tr>
+				<td class="head"><?php echo $GLOBALS['TL_LANG']['MSC']['seminarheading_date']; ?></td>
+				<td class="data">
+					<?php echo ' '.$this->parseDate("l, d. F Y",$this->curStartTime); ?>
+					<?php if ($this->endDate): ?>
+							 - 					
+							<?php echo $this->parseDate("l, d. F Y",$this->curEndTime); ?>
+				    <?php endif; ?>
+					<?php if ($this->time): ?>
+							  / 
+							 <?php echo $this->time.' Uhr'; ?>
+				    <?php endif; ?>
+				</td>
+			</tr>
+		  <? endif; ?>
+
+		  <?php if (!empty($this->location)): ?>
+			<tr>
+				<td class="head"><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_location']; ?></td>
+				<td class="data"><?php echo $this->location; ?></td>
+			</tr>
+		  <?php endif; ?>
+		  <?php if (!empty($this->referent)): ?>
+			<tr>
+				<td class="head"><?php echo $GLOBALS['TL_LANG']['MSC']['seminarheading_referent']; ?></td>
+				<td class="data"><?php echo $this->referent; ?></td>
+			</tr>
+		  <?php endif; ?>
+			<tr>
+				<td class="head"><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_cost']; ?></td>
+				<td class="data"><?php echo $this->cost.' '.$this->currency; ?></td>
+			</tr>
+		  <?php if (!empty($this->specials) && !empty($this->evtSpecials) ): ?>
+			<tr>
+				<td class="head"><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_specials']; ?></td>
+				<td class="data"><?php echo $this->evtSpecials ? $this->evtSpecials : $this->specials; ?></td>
+			</tr>
+		  <?php endif; ?>	
+
+		</tbody>
+	</table>
+</div>

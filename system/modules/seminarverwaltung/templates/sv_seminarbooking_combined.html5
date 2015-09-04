@@ -1,0 +1,189 @@
+<!-- indexer::stop -->
+<div class="<?php echo $this->class; ?> block"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
+
+<?php if ($this->headline): ?>
+<<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
+<?php endif; ?>
+
+<?php if ($this->submitted): ?>
+<div class="sv_booked">
+<?php echo $this->ready; ?>
+</div> 
+<?php else: ?> 
+<form id="seminarbuchung" name="seminarbuchung" method="post" action="<?php echo $this->action; ?>" class="ce_form yform seminar block">
+<input type="hidden" name="FORM_SUBMIT" value="seminarbuchung" />
+<input type="hidden" name="REQUEST_TOKEN" value="{{request_token}}"> 
+<input type="hidden" name="show_recurring" value="0"> 
+  <?php $blnBooking = true; ?>
+  <?php if ($this->doSelect): ?>	
+      <?php if (!$this->doSeminarSelect): ?>
+		  <?php echo $this->semkat->generateLabel(); ?>
+		  <?php echo $this->semkat->generate(); ?><br>
+	  <?php endif; ?>
+      <?php if ($this->arrSeminar['title']): ?>
+		  <h2><?php echo $this->arrSeminar['title']; ?></h2>
+	  <?php else: ?>
+		  <?php echo $this->seminar->generateLabel(); ?>
+		  <?php echo $this->seminar->generate(); ?><br>
+	  <?php endif; ?>
+
+  <!-- folgende Elemente werden via AJAX befüllt -->
+		  <div class="seminarinfo" style="display:none">
+			  <!-- Darstellung des ausgewählten Seminarevents -->
+	      <h2 class="seminarbooking">Ihr gewählter Termin</h2>
+		  <!-- Darstellung des ausgewaehlten Seminarevents -->
+		  <h2 id="title" class="no_hide"></h2>
+		  <p><strong><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_intern']; ?> <span id="intern" class="no_hide"></span></strong></p>
+		  <div id="details" class="no_hide"></div>
+		  <div id="specials" class="no_hide"></div>
+	      <ul>
+		  <li><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_location']; ?>: <span id="location" class="no_hide"></span></li>
+		  <li><?php echo $GLOBALS['TL_LANG']['MSC']['seminarevent_dateFrom']; ?>: <span id="startDate" class="no_hide"></span></li>
+		  <li><?php echo $GLOBALS['TL_LANG']['MSC']['seminarevent_dateTo']; ?>: <span id="endDate" class="no_hide"></span></li>
+		  <li><?php echo $GLOBALS['TL_LANG']['MSC']['seminarevent_timeFrom']; ?>: <span id="startTime" class="hide"></span></li>
+		  <li><?php echo $GLOBALS['TL_LANG']['MSC']['seminarevent_timeTo']; ?>: <span id="endTime" class="hide"></span></li>
+		  <li><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_cost']; ?>: <span id="cost" class="no_hide"></span><span id="currency" class="no_hide"></span></li>
+	      </ul>
+		  <!--
+		  <p><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_teaser']; ?> <span id="teaser" class="hide"></span></p>
+		  <p><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_duration']; ?> <span id="duration" class="hide"></span></p>
+		  <p><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_reducedcost']; ?> <span id="reducedcost" class="hide"></span><span id="currency" class="no_hide"></span></p>
+		  -->
+	  </div>
+  <?php else: ?>
+	<H3><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_details']; ?></H3>
+	<hr>
+	<div class="seminarinfo">
+	  <table class="contentpane">
+	  	<tbody>
+	  		<tr class="even">
+	  			<th><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_intern']; ?></th>
+	  			<td><?php echo $this->arrSeminar['intern']; ?></td>
+	  		</tr>
+	  		<tr class="odd">
+	  			<th><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_location']; ?></th>
+	  			<td><?php echo $this->arrSeminar['location']; ?></td>
+	  		</tr>
+	  		<tr class="even">
+	  			<th><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_duration']; ?></th>
+	  			<td><?php echo $this->arrSeminar['duration']; ?></td>
+	  		</tr>
+	  		<tr class="odd">
+	  			<th><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_date']; ?></th>
+	  			<td><?php 
+	  			   if (!empty($this->arrSeminar['startDate'])) {
+	  			    $snum = date("w",$this->arrSeminar['startDate']);
+	  			    $enum = date("w",$this->arrSeminar['endDate']);
+	  			    $swochentag = $GLOBALS['TL_LANG']['tl_seminar_booking']['weekdays'][$snum];
+	  			    $ewochentag = $GLOBALS['TL_LANG']['tl_seminar_booking']['weekdays'][$enum];
+	  			    echo $swochentag.' '.$this->parseDate($GLOBALS['TL_CONFIG']['dateFormat'],$this->arrSeminar['startDate']);
+	  			    if ($this->arrSeminar['arrEvent']['multipleDate'] && ($this->arrSeminar['endDate'] > $this->arrSeminar['startDate'])) {
+	  			      echo ' - '.$ewochentag.' '.$this->parseDate($GLOBALS['TL_CONFIG']['dateFormat'],$this->arrSeminar['endDate']); 
+	  			    }
+	  			   }
+	  			?></td>
+	  		</tr>
+	  		<tr class="even">
+	  			<th><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_timerange']; ?></th>
+	  			<td>
+	  			<?php 
+	  			   if ($this->arrSeminar['arrEvent']['addTime']) {
+	  			     echo $this->parseDate($GLOBALS['TL_CONFIG']['timeFormat'],$this->arrSeminar['startTime']);
+	  			     if (!empty($this->arrSeminar['endTime'])) {
+	  			       echo ' - '.$this->parseDate($GLOBALS['TL_CONFIG']['timeFormat'],$this->arrSeminar['endTime']); 
+	  			     }
+	  			   }
+	  			?>
+	  			</td>
+	  		</tr>
+	  		<tr class="odd">
+	  			<th><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_attendance']; ?></th>
+	  			<td>
+	  			<?php
+	  				$strMaxTN = $GLOBALS['TL_LANG']['MSC']['seminar_min'].' '. $this->arrSeminar['places_min'] . ' ' . $GLOBALS['TL_LANG']['MSC']['seminar_participant']; 
+	  				if ($this->arrSeminar['booked'] >= $this->arrSeminar['places']) {
+		  				$strMaxTN = 'Kurs ist ausgebucht';
+	  				} else if ($this->arrSeminar['booked'] >= $this->arrSeminar['places_min']) {
+		  				$strMaxTN = 'Kurs wird durchgeführt';
+		  				$blnBooking = false;
+	  				}
+	  			?>
+	  			<?php echo $strMaxTN; ?>
+	  			</td>
+	  		</tr>
+	  		<tr class="even">
+	  			<th>Kurspreis</th>
+	  			<td><?php echo $this->arrSeminar['currency'].' '.$this->arrSeminar['cost']; ?></td>
+	  		</tr>
+	  	</tbody>
+	  </table>
+	  <?php	if (($this->arrSeminar['eventSpecials']) || ($this->arrSeminar['specials'])): ?>
+	  <h2><?php echo $GLOBALS['TL_LANG']['MSC']['seminarevent_specials']; ?></h2>
+	  <?php endif; ?>
+	  <div class="specials">
+	  <?php
+	  	if ($this->arrSeminar['eventSpecials']) {
+	  		echo '<div class="eventSpecial">'.$this->arrSeminar['eventSpecials'].'</div>';
+	  	}	
+	  	if ($this->arrSeminar['specials']) {
+	  		echo '<div class="seminarSpecial">'.$this->arrSeminar['specials'].'</div>';
+	  	}
+	  ?>
+  	  </div>
+	
+	</div>
+	<hr>
+  
+  <?php endif; ?>
+  <?php if ($blnBooking): ?>
+  	<h3>Anmeldeformular</h3>
+	<?php echo $this->geschlecht->generateLabel(true); ?>
+  	<?php echo $this->geschlecht->generateWithError(true); ?><br>
+  	<?php echo $this->vorname->generateLabel(); ?>
+  	<?php echo $this->vorname->generateWithError(true); ?><br>
+  	<?php echo $this->nachname->generateLabel(); ?>
+  	<?php echo $this->nachname->generateWithError(true); ?><br>
+  	<?php echo $this->strasse->generateLabel(); ?>
+  	<?php echo $this->strasse->generateWithError(true); ?><br>
+  	<?php echo $this->plz->generateLabel(); ?>
+  	<?php echo $this->plz->generateWithError(true); ?><br>
+  	<?php echo $this->ort->generateLabel(); ?>
+  	<?php echo $this->ort->generateWithError(true); ?><br>
+  	<?php echo $this->telefon->generateLabel(); ?>
+  	<?php echo $this->telefon->generateWithError(true); ?><br>
+  	<?php echo $this->email->generateLabel(); ?>
+  	<?php echo $this->email->generateWithError(true); ?><br>
+  	<?php echo $this->msg->generateLabel(); ?>
+  	<?php echo $this->msg->generateWithError(true); ?><br>
+
+	<p class="error">
+		<?php if (!$this->agb->validate) echo $this->agb->getErrorAsString(); ?>
+	</p>
+	<div class="agb-checkbox">
+  		<?php echo $this->agb->generateLabel(); ?>
+  		<input type="checkbox" class="checkbox_container" name="agb">
+	</div>
+	<p class="agb-link"><?php echo $GLOBALS['TL_LANG']['MSC']['linkToAGB']; ?>: {{link::agb}}</p>
+
+ 	<?php $blnReservation = false; ?>
+  	<?php if ($this->doSelect): ?>	
+      <?php if ($this->doSeminarSelect): ?>
+	      <?php if ($this->arrSeminar['title']): ?>
+		    <?php $blnReservation = true; ?>
+		  <?php endif; ?>
+	   <?php endif; ?>
+    <?php endif; ?>
+
+	<div class="submit_container type-button">
+ 	<?php if ($blnReservation || ($this->bookingStatus === false)): ?>	
+		<input type="submit" value="<?php echo $GLOBALS['TL_LANG']['MSC']['seminar_button_reservation']; ?>" id="submit" name="submit" />
+   <?php else: ?>
+  		<input type="submit" value="<?php echo $GLOBALS['TL_LANG']['MSC']['seminar_button_booking']; ?>" id="submit" name="submit" />
+	<?php endif; ?>
+  	</div>
+  <?php endif; ?>
+
+</form>
+<?php endif; ?>
+</div>
+<!-- indexer::continue -->

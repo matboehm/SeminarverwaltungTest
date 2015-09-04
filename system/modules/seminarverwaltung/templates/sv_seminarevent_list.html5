@@ -1,0 +1,45 @@
+<!-- Seminareventzeile -->
+	<tr>
+		<td class="data"><?php echo $this->title; ?></td>
+		<td class="data"><a href="<?php echo $this->href; ?>"><?php echo $this->intern; ?></a></td>
+		<td class="data"><?php echo ' '.$this->date; ?>
+						 <?php if ($this->time): ?>
+							 &nbsp;/&nbsp;
+		                 	<?php echo $this->time.' Uhr'; ?></td>
+		                 <?php endif; ?>
+		<td class="data"><?php echo $this->location; ?></td>
+		<td class="data"><?php echo $this->referent; ?></td>
+		<td class="data"><?php echo $this->cost.' '.$this->currency; ?></td>
+		<td class="data"><a href="<?php echo $this->buchen_formular;?>">Zur Anmeldung</a></td>
+	</tr>
+<!--
+<div class="variablen">
+    <div><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_title']; ?> <?php echo $this->title; ?></div>
+    <div><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_alias']; ?> <?php echo $this->alias; ?></div>
+    <div><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_intern']; ?> <?php echo $this->intern; ?></div>
+    <div><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_teaser']; ?> <?php echo $this->teaser; ?></div>
+    <div><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_details']; ?> <?php echo $this->details; ?></div>
+    <div><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_specials']; ?> <?php echo $this->specials; ?></div>
+    <div><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_location']; ?> <?php echo $this->location; ?></div>
+    <div><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_cost']; ?> <?php echo $this->cost; ?></div>
+    <div><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_currency']; ?> <?php echo $this->currency; ?></div>
+    <div><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_reducedcost']; ?>Reduzierte Kosten <?php echo $this->reducedcost; ?></div>
+    <div><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_sponsorship']; ?> <?php echo $this->sponsorship; ?></div>
+    <div><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_places']; ?> <?php echo $this->places; ?></div>
+    <div><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_min']; ?> <?php echo $this->places_min; ?></div> 
+    <div><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_lastRequestDays']; ?> <?php echo $this->last_request_days; ?> Tage</div>
+    <div><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_lastRequestDirection']; ?> <?php echo $this->last_request_direction; ?></div>
+    <div><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_email']; ?> <?php echo $this->email; ?></div>
+    <div><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_showalways']; ?> <?php echo $this->showalways; ?></div>
+    <div><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_duration']; ?> <?php echo $this->duration; ?></div>
+    <div><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_jumpTo']; ?> <?php echo $this->buchen_formular; ?></div>
+    <div><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_date']; ?> <?php echo $this->date; ?></div>
+    <div><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_time']; ?> <?php echo $this->time; ?></div>
+    <div><?php echo $GLOBALS['TL_LANG']['MSC']['seminarevent_dateFrom']; ?> <?php echo $this->startDate; ?></div>
+    <div><?php echo $GLOBALS['TL_LANG']['MSC']['seminarevent_timeFrom']; ?> <?php echo $this->startTime; ?></div>
+    <div><?php echo $GLOBALS['TL_LANG']['MSC']['seminarevent_timeTo']; ?> <?php echo $this->endTime; ?></div>
+    <div><?php echo $GLOBALS['TL_LANG']['MSC']['seminarevent_dateTo']; ?> <?php echo $this->endDate; ?></div>
+    <div><?php echo $GLOBALS['TL_LANG']['MSC']['seminarevent_details']; ?><?php echo $this->evtDetails; ?></div>
+    <div><?php echo $GLOBALS['TL_LANG']['MSC']['seminar_referent']; ?> <?php echo $this->referent; ?></div>
+</div>
+-->

@@ -1,0 +1,8 @@
+<!-- Seminarliste -->
+<div <?php if ($cssId): ?>id="<?php echo $cssID?>"<?php endif; ?> class="seminarmenu<?php if ($cssClass) { echo ' '.$cssClass;}?>">
+	<li>
+		<a href="<?php echo $this->href; ?>">
+			<?php echo $this->title; ?>
+		</a>
+	</li>
+</div>

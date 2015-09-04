@@ -1,0 +1,69 @@
+<div <?php if ($cssId): ?>id="<?php echo $cssID?>"<?php endif; ?> class="seminarlist<?php if ($cssClass) { echo ' '.$cssClass;}?>">
+<?php  if (empty($this->arrSeminars)) return; ?>
+<?php  foreach($this->arrSeminars as $arrSeminar): ?>
+	<!-- Titel - Link zur Reader-Seite -->
+	<h3 class="sv_titel">
+		  <?php echo $arrSeminar['title'].' ('.$arrSeminar['intern'].')'; ?>
+	</h3>
+	<!-- Rahmeninfos zum Seminar -->
+	<div class="sv_subtitle sv_info">
+	  <?php echo $GLOBALS['TL_LANG']['MSC']['seminarheading_location'].': '.$arrSeminar['location'].' / '.$GLOBALS['TL_LANG']['MSC']['seminarheading_referent'].':'.$arrSeminar['referent'].'/ '.$GLOBALS['TL_LANG']['MSC']['seminarheading_cost'].': '.$arrSeminar['cost'].' '.$arrSeminar['currency']; ?>
+	</div>
+
+	<!-- Bild aus dem Seminar einfügen -->
+	<?php if ($arrSeminar['addImage']): ?>
+		<figure class="image_container <?php echo $arrSeminar['floatClass']; ?>"<?php if ($arrSeminar['margin'] || $arrSeminar['floating']): ?> style="<?php echo trim($arrSeminar['margin'] . $arrSeminar['float']); ?>"<?php endif; ?>>
+		<?php if ($arrSeminar['href']): ?>
+			<a href="<?php echo $arrSeminar['href']; ?>"<?php echo $arrSeminar['attributes']; ?> title="<?php echo $arrSeminar['alt']; ?>">
+		<?php endif; ?>
+		<img src="<?php echo $arrSeminar['src']; ?>"<?php echo $arrSeminar['imgSize']; ?> alt="<?php echo $arrSeminar['alt']; ?>">
+		<?php if ($arrSeminar['href']): ?>
+			</a>
+		<?php endif; ?>
+		<?php if ($arrSeminar['caption']): ?>
+			<figcaption class="caption" style="width:<?php echo $arrSeminar['arrSize'][0]; ?>px"><?php echo $arrSeminar['caption']; ?></figcaption>
+		<?php endif; ?>
+		</figure>
+	
+	<?php endif; ?>
+
+	<!-- Teaser anzeigen, sofern vorhanden -->
+	<?php if ($arrSeminar['teaser']):?>
+	<div class="sv_teaser">
+	  <?php echo $arrSeminar['teaser']; ?>
+	</div>
+	<?php endif; ?>
+
+	<!-- Die zugehörigen Events -->
+	<?php if (!empty($arrSeminar['arrEvents'])): ?>
+		<?php  foreach($arrSeminar['arrEvents'] as $arrEvent): ?>
+			<!-- Untertitel Kurzinfos -->
+			<?php
+			   	$time = time();
+			   	$tm = date('Ymd',$time);
+			   	$dt = date('Ymd',$arrEvent['date']);
+			   	// nur aktuelle und zukünftige Events ausgeben //
+			   	if ($dt < $tm) continue;
+		   	?>
+			<div class="sv_event_row">
+				<span class="sv_event_intern"><?php echo $arrEvent['intern']; ?></span>
+				<span class="sv_event sv_date">
+				  <?php echo $arrEvent['startDate']; ?>
+				  <?php if ($arrEvent['addTime']): ?>
+					  <?php echo $arrEvent['startTime'].'h'; ?>
+					  <?php if ($arrEvent['endTime']): ?>
+					  	<php echo ' - '.$arrEvent['endTime'].'h'; ?>
+					  <?php endif; ?>
+				  <?php endif; ?>
+				</span>
+				<span class="sv_event sv_location"><?php echo $arrEvent['location'] ? $arrEvent['location'] : $arrSeminar['location']; ?></span>
+				<!-- Weiter lesen Link -->
+				<span class="more">
+					<a title="<?php echo $GLOBALS['TL_LANG']['MSC']['more']; ?>" href="<?php echo $arrEvent['href']; ?>"><?php echo $GLOBALS['TL_LANG']['MSC']['more']; ?></a>
+				</span>
+			</div>
+		<!-- Schleifenende -->
+		<?php endforeach; ?>
+	<?php endif; ?>
+<?php endforeach; ?>
+</div>

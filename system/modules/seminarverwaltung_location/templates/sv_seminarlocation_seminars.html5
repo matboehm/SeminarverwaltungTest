@@ -1,0 +1,68 @@
+<?php //echo '<pre>'; print_r($this->arrData); echo '</pre>'; ?>
+<!-- Locationanzeige -->
+<div class="seminarlocation layout_list<?php echo $this->classList; ?>">
+
+<?php if ($this->location == '*'): ?> 
+	<?php $loc = 'Alle'; ?>
+<?php else: ?>
+	<?php $loc = $this->location; ?>
+<?php endif; ?>
+<h1><?php echo $loc; ?></h1>
+
+<?php //foreach($this->arrLocations as $arrLocation): ?>
+	<?php $arrEvents[] = $this->arrEvents[$arrLocation['event_id']];?>
+	<?php foreach($this->arrEvents as $key=>$event): ?>
+			<?php //echo '<pre>'; print_r($event); echo '</pre>'; ?>
+			<?php $seminar = $event['arrSeminar']; ?>
+			<h2>Kurs <?php echo $event['seminar'].' ('.$event['category'].')'; ?></h2>
+			<div><?php echo $seminar['teaser']; ?></div>
+			<table class="sv_details">
+				<tbody>
+					<tr>
+						<td class="head">Kursnummer</td>
+						<td>
+							<?php echo $event['intern']; ?>
+						</td>
+					</tr>
+					<tr>
+						<td class="head">Ort</td>
+						<td class="data"><?php echo $event['location']; ?></td>
+					</tr>
+					<tr>
+						<td class="head">Kosten</td>
+						<td class="data"><?php echo $seminar['cost'].' '.$seminar['currency']; ?></td>
+					</tr>
+					<tr>
+						<td class="head">Datum</td>
+						<td class="data">
+							<a class="ical" href="<?php echo $event['icaldata']['href_ical']; ?>" title="<?php echo $event['icaldata']['title_ical']; ?> zum eigenen Kalender hinzufügen">
+								<img src="files/data/images/icon_ical.png">
+								<?php echo $event['startDate']; ?>
+								<?php if ($event['multipleDate']): ?>
+									- <?php echo $event['endDate']; ?>
+								<?php endif; ?>
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td class="head">Zeit</td>
+						<td class="data">
+							<?php if ($event['addTime']): ?>
+								<?php echo $event['startTime']; ?> - <?php echo $event['endTime']; ?> Uhr
+							<?php endif; ?>
+						</td>
+					</tr>
+					<tr>
+						<td class="head">Freie Plätze</td>
+						<td class="data">
+							<span class="booking_<?php echo $event['bookingstate']; ?>"></span>
+							<span style="margin-left:30px"><?php echo ($seminar['places']-$event['places_booked']); ?></span>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<?php //print_r($event); ?>
+			<a href="<?php echo $event['href']; ?>">weiter</a>
+			<br><br>		
+	<?php endforeach; ?>
+<?php //endforeach; ?>
