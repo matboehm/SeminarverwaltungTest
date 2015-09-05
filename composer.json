@@ -1,0 +1,34 @@
+{
+	"name":"solidred/contao-seminarverwaltung",
+	"description":"Seminar-/Eventverwaltung für Contao",
+	"keywords":["seminar", "event", "contao", "verwaltung", "seminarverwaltung", "manager", "administration"],
+	"type":"contao-module",
+	"homepage":"http://contao-seminarverwaltung.de/",
+	"license":"proprietary",
+	"authors": [
+		{
+			"name":"Gerd Regnery",
+			"email":"g.regnery@solidred.de",
+			"homepage":"http://solidred.de/",
+			"role":"Developer"
+		}
+	],
+	"support":{
+			"issues":"http://contao-seminarverwaltung.de/kontakt.html",
+	},
+	"require": {
+		"php":">=5.3",
+		"contao/core":">=2.11,<4.0",
+	},
+	"extra":{
+		"contao": {
+			"sources": {
+				"seminarverwaltung": "system/modules/seminarverwaltung",
+				"seminarverwaltung_booking": "system/modules/seminarverwaltung_booking",
+				"seminarverwaltung_bookingPayment": "system/modules/seminarverwaltung_bookingPayment",
+				"seminarverwaltung_kurskalender": "system/modules/seminarverwaltung_kurskalender",
+				"seminarverwaltung_location": "seminarverwaltung_location"
+			}
+		}
+	}
+}
