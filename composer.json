@@ -14,7 +14,7 @@
 		}
 	],
 	"support":{
-			"issues":"http://contao-seminarverwaltung.de/kontakt.html",
+			"issues":"http://contao-seminarverwaltung.de/kontakt.html"
 	},
 	"require": {
 		"php":">=5.3",
