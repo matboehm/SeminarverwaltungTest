@@ -28,7 +28,10 @@
 				"seminarverwaltung_bookingPayment": "system/modules/seminarverwaltung_bookingPayment",
 				"seminarverwaltung_kurskalender": "system/modules/seminarverwaltung_kurskalender",
 				"seminarverwaltung_location": "seminarverwaltung_location"
-			}
+			},
+		"branch-alias": {
+			"dev-master": "0.7"
+		}
 		}
 	}
 }
